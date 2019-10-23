@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/react-training/static/css/main.d1cefbad.chunk.css",
+    "main.js": "/react-training/static/js/main.c1f005ad.chunk.js",
+    "main.js.map": "/react-training/static/js/main.c1f005ad.chunk.js.map",
+    "runtime-main.js": "/react-training/static/js/runtime-main.68945365.js",
+    "runtime-main.js.map": "/react-training/static/js/runtime-main.68945365.js.map",
+    "static/css/2.5dbdccff.chunk.css": "/react-training/static/css/2.5dbdccff.chunk.css",
+    "static/js/2.bf4ad48b.chunk.js": "/react-training/static/js/2.bf4ad48b.chunk.js",
+    "static/js/2.bf4ad48b.chunk.js.map": "/react-training/static/js/2.bf4ad48b.chunk.js.map",
+    "index.html": "/react-training/index.html",
+    "precache-manifest.d862e6101ef704747885735b1f6abe6b.js": "/react-training/precache-manifest.d862e6101ef704747885735b1f6abe6b.js",
+    "service-worker.js": "/react-training/service-worker.js",
+    "static/css/2.5dbdccff.chunk.css.map": "/react-training/static/css/2.5dbdccff.chunk.css.map",
+    "static/css/main.d1cefbad.chunk.css.map": "/react-training/static/css/main.d1cefbad.chunk.css.map",
+    "static/media/App.css": "/react-training/static/media/background.d1d9f1db.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.68945365.js",
+    "static/css/2.5dbdccff.chunk.css",
+    "static/js/2.bf4ad48b.chunk.js",
+    "static/css/main.d1cefbad.chunk.css",
+    "static/js/main.c1f005ad.chunk.js"
+  ]
+}

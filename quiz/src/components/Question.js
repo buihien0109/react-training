@@ -1,47 +1,63 @@
 import React from "react";
 
 class Question extends React.Component {
-  constructor(props) {
-    super(props);
-  }
- 
-
   render() {
-    const { quizzes, currentQuestion, numberQuestionRight } = this.props;
-    const total = quizzes.length
-    const quiz =
-      currentQuestion < total
-        ? quizzes[currentQuestion]
-        : quizzes[total - 1];
+    const LABEL_ANSWER = ["A", "B", "C", "D"];
+    
+    const {
+      quizzes,
+      currentQuestion,
+      userSelectClass,
+      onSelectQuestion,
+      onNextQuestion,
+      onEndQuiz
+    } = this.props;
+
+    const quiz = quizzes[currentQuestion];
+
+    const btnNextQuestion = (
+      <button
+        className="Button ButtonSmall btn btn-secondary"
+        onClick={onNextQuestion}
+      >
+        CÂU TIẾP THEO
+      </button>
+    );
+
+    const btnEndQuiz = (
+      <button
+        className="Button ButtonSmall btn btn-secondary"
+        onClick={onEndQuiz}
+      >
+        KẾT THÚC
+      </button>
+    );
 
     return (
       <main>
         <div className="Body">
-          <div className="Question">{quiz.question}</div>
+          <div className="Question">{currentQuestion + 1}. {quiz.question}</div>
 
-          <div className="PossibleAnwsers">
+          <div className="PossibleAnswers">
             {quiz.answers.map((answer, index) => (
               <div
-                className="Anwser"
+                className={userSelectClass[index]}
                 key={index}
                 onClick={() => {
-                  this.props.onSelectQuestion(answer, quiz.correct);
+                  onSelectQuestion(index, answer, quiz.answerTrue);
                 }}
               >
-                <div className="AnwserIndex">{index + 1}</div>
-                <div className="AnwserContent">{answer}</div>
+                <div className="AnswerIndex">{LABEL_ANSWER[index]}</div>
+                <div className="AnswerContent">{answer}</div>
               </div>
             ))}
           </div>
         </div>
 
         <div className="Footer">
-          <button
-            className="Button ButtonSmall btn btn-secondary"
-            onClick={this.props.onNextQuestion}
-          >
-            {currentQuestion === total-1 ? "Kết thúc" : "Câu tiếp theo"}
-          </button>
+          {currentQuestion === quizzes.length - 1
+            ? btnEndQuiz
+            : btnNextQuestion}
         </div>
       </main>
     );

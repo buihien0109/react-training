@@ -1,42 +1,27 @@
 import React from "react";
-import "../App.css";
 
 class Popup extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      time: "start",
-      title: "Welcome to Quizz",
-      text: "Bài kiểm tra trắc nghiệm",
-      buttonText: "Bắt đầu"
-    };
-  }
   render() {
-    let { numberQuestionRight, quizzes, currentQuestion } = this.props;
-    let { title, text, buttonText } = this.state;
-    let total = quizzes.length;
-    if (currentQuestion === total - 1) {
-      this.setState({
-        time: "end",
-        title: "Welcome to Quizz",
-        text:
-          "Bạn đã trả lời chính xác " +
-          numberQuestionRight +
-          "/" +
-          total +
-          " câu hỏi",
-        buttonText: "Chơi lại"
-      });
+    const { total, score, isStart } = this.props;
+    let title, text, buttonText
+    if(isStart) {
+        title = "Chúc mừng bạn đã hoàn thành bài kiểm tra"
+        text = "Bạn đạt " + score + "/" + total +" câu hỏi"
+        buttonText = "CHƠI LẠI"
+    } else {
+        title = "Bạn hiểu đất nước Việt Nam của mình đến đâu?"
+        text = "Bạn có phải là một người yêu nước, kiến thức của bạn về nước ta rộng lớn đến đâu? Tham gia làm bài test IQ để biết bạn hiểu đất nước Việt Nam của mình đến đâu? Chúc các bạn làm bài vui vẻ! "
+        buttonText = "BẮT ĐẦU NGAY"
     }
     return (
       <div className="popup-container">
         <div className="container">
-          <div className="col-md-8 col-md-offset-2">
+          <div className="col-md-8 mr-auto ml-auto">
             <div className="popup">
               <h1>{title}</h1>
               <p>{text}</p>
-              <button className="fancy-btn" onClick={this.props.popupHandle}>
+              <button className="fancy-btn" onClick={this.props.onPopupHandle}>
                 {buttonText}
               </button>
             </div>

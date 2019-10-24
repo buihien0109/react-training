@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import { ToastContainer, toast } from "react-toastify";
 
 import Status from "./components/Status";
 import Question from "./components/Question";
 import Popup from "./components/Popup";
+import Loading from "./components/Loading";
 
 class App extends React.Component {
   constructor(props) {
@@ -12,106 +12,208 @@ class App extends React.Component {
     this.state = {
       quizzes: [
         {
-          question:
-            ' Sau cách mạng tháng Tám, Bác Hồ đã từng nói: "Một dân tộc dốt là một dân tộc..."',
-          answers: ["Đói", "Yếu", "Thất bại", "Nhỏ bé"],
-          correct: "Yếu"
+          question: "Thủ đô của Việt Nam là?",
+          answers: ["Hà Nội", "Hải Phòng", "Thành phố Hồ Chí Minh", "Đà Nẵng"],
+          answerTrue: "Hà Nội"
         },
         {
-          question: "Ngày 6 – 1 – 1946 ở Việt Nam diễn ra sự kiện nào sau đây?",
-          answers: [
-            "Thông qua Hiến pháp đầu tiên của nước Việt Nam Dân chủ Cộng hòa",
-            "Bầu cử Hội đồng nhân dân các cấp; thành lập Ủy ban hành chính các cấp",
-            "Quốc hội khóa I họp phiên đầu tiên, thành lập Chính phủ Liên hiệp kháng chiến",
-            "Tổng tuyển cử bầu đại biểu Quốc hội nước Việt Nam Dân chủ Cộng hòa."
-          ],
-          correct:
-            "Tổng tuyển cử bầu đại biểu Quốc hội nước Việt Nam Dân chủ Cộng hòa."
+          question: "Việt Nam nằm trong khu vực nào của châu Á?",
+          answers: ["Đông Á", "Đông Nam Á", "Nam Á", "Tây Á"],
+          answerTrue: "Đông Nam Á"
         },
         {
-          question: "Chiến thắng lịch sử Điện Biên Phủ diễn ra vào năm nào?",
-          answers: ["1945", "1954", "1975", "1972"],
-          correct: "1954"
+          question: "Quốc hoa của Việt Nam là gì",
+          answers: ["Hoa Hồng", "Hoa Tulip", "Hoa Sen", "Hoa Hướng Dương"],
+          answerTrue: "Hoa Sen"
+        },
+        {
+          question: "Nước ta có bao nhiêu dân tộc đang sinh sống?",
+          answers: ["56", "52", "54", "57"],
+          answerTrue: "54"
+        },
+        {
+          question: "Tỉnh nào có nhiều thành phố nhất Việt Nam?",
+          answers: ["Hà Nội", "Hải Phòng", "Thành phố Hồ Chí Minh", "Quảng Ninh"],
+          answerTrue: "Quảng Ninh"
+        },
+        {
+          question: "Tòa nhà nào cao nhất Việt Nam??",
+          answers: ["Keangnam Landmark", "Lotte", "Landmark 81", "Tháp Bitexco"],
+          answerTrue: "Landmark 81"
+        },
+        {
+          question: "Ngọn núi nào cao nhất Việt Nam?",
+          answers: ["Phan Xi Păng", "Tà Chì Nhù", "Bạch Mộc Lương Tử", "Putaleng"],
+          answerTrue: "Phan Xi Păng"
+        },
+        {
+          question: "Cực Bắc nước ta nằm ở tỉnh nào?",
+          answers: ["Quảng Ninh", "Hà Giang", "Khánh Hòa", "Đà Nẵng"],
+          answerTrue: "Hà Giang"
+        },
+        {
+          question: "Hang động tự nhiên lớn nhất thế giới là?",
+          answers: ["Hang Thiên Đường", "Động Phong Nha", "Hang Sơn Đoòng", "Bích Động"],
+          answerTrue: "Hang Sơn Đoòng"
+        },
+        {
+          question: "Thánh địa Mỹ Sơn nằm ở tỉnh nào sau đây?",
+          answers: ["Ninh Thuận", "Bình Thuận", "Quảng Nam", "Quảng Bình"],
+          answerTrue: "Ninh Thuận"
         }
       ],
       currentQuestion: 0,
-      numberQuestionRight: 0,
-      displayPopup: true
+      score: 0,
+      time: 60,
+      userSelectClass: ["Answer", "Answer", "Answer", "Answer"],
+      isSelectAnswer: false,
+      isPopup: true,
+      isStart: false,
+      isLoading : false
     };
   }
+  //Đếm ngược thời gian
+  countdownTime = () => {
+    let { quizzes, currentQuestion, time } = this.state;
+    if (currentQuestion < quizzes.length - 1) {
+      //Đếm ngược thời gian 60s
+      let interval = setInterval(() => {
+        time--;
+        this.setState({
+          time: time
+        });
+        if (time === 0) {
+          clearInterval(interval);
+          this.setState({
+            isPopup : true
+          });
+        }
+      }, 1000);
+    }
+  };
 
-  onNextQuestion = () => {
-    let {currentQuestion, quizzes} = this.state
-    let total = quizzes.length
+  //Bắt đầu bài Quiz
+  startQuiz = () => {
     this.setState({
-      currentQuestion:
-        currentQuestion < total
-          ? currentQuestion + 1
-          : currentQuestion,
-      displayPopup:
-        currentQuestion + 1 === total
-          ? true
-          : false
+      isPopup: false
+    });
+    this.countdownTime();
+  };
+
+  //Kết thúc bài Quiz
+  endQuiz = () => {
+    this.setState({
+      isPopup: true,
     });
   };
 
-  popupHandle = () => {
-    this.setState({
-      displayPopup: false
-    });
-  };
-
-  onSelectQuestion = (answer, correct) => {
-    const {numberQuestionRight} = this.state
-    if (answer === correct) {
-      this.setState({
-        currentQuestion : this.state.currentQuestion + 1,
-        numberQuestionRight: numberQuestionRight + 1
-      })
-      toast.success("Chính xác", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 1000
+  //Chọn câu Trả Lời
+  selectQuestion = (index, answer, answerTrue) => {
+    if (!this.state.isSelectAnswer) {
+      // Highlight đáp án người dùng chọn
+      // TODO: Hiển thị đáp án đúng sai và tính điểm
+      let { score, userSelectClass } = this.state;
+      const newUserSelectClass = userSelectClass.map((selectClass, i) => {
+        if (i === index) {
+          if (answer === answerTrue) {
+            selectClass = "Answer true";
+            score++;
+            setTimeout(() => {
+              this.nextQuestion();
+            }, 1500);
+          } else {
+            selectClass = "Answer false";
+            setTimeout(() => {
+              this.nextQuestion();
+            }, 1500);
+          }
+        }
+        return selectClass;
       });
-    } else {
-      toast.error("Không đúng rồi!!", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 1000
+
+      this.setState({
+        score: score,
+        userSelectClass: newUserSelectClass,
+        isSelectAnswer: true
       });
     }
-  }
+  };
 
+  // Chuyển câu hỏi kế tiếp
+  nextQuestion = () => {
+    // Nếu chưa phải câu hỏi cuối cùng thì mới chuyển câu hỏi kế tiếp
+    if (this.state.currentQuestion < this.state.quizzes.length - 1) {
+      this.setState({
+        userSelectClass: ["Answer", "Answer", "Answer", "Answer"],
+        currentQuestion: this.state.currentQuestion + 1,
+        isSelectAnswer: false
+      });
+    }
+  };
+
+  //Xử lý khi hết câu hỏi và restart lại quiz
+  popupHandle = () => {
+    let {isStart} = this.state
+    //Nếu chưa bắt đầu thì cho bắt đầu còn không thì reload lại app Quiz
+    if (isStart === false) {
+      this.setState({
+        isStart: true
+      });
+      this.startQuiz();
+    } else {
+      this.setState({
+        isLoading: true //Cho Loading và sau 2s thì reload lại trang
+      });
+      setTimeout(() => {
+        window.location.reload();
+      },2000)
+      
+    }
+  };
   render() {
-    let { displayPopup } = this.state;
-    let elePopup =
-      displayPopup === true ? (
-        <Popup
-          popupHandle={this.popupHandle}
-          numberQuestionRight={this.state.numberQuestionRight}
-          quizzes={this.state.quizzes}
-          currentQuestion={this.state.currentQuestion}
-        />
-      ) : (
-        ""
-      );
+    const {
+      quizzes,
+      currentQuestion,
+      score,
+      time,
+      userSelectClass,
+      isPopup,
+      isStart,
+      isLoading
+    } = this.state;
 
     return (
       <div className="App container-fluid">
-        {elePopup}
+        {isPopup ? (
+          <Popup
+            total={quizzes.length}
+            score={score}
+            isPopup={isPopup}
+            isStart={isStart}
+            startQuiz={this.startQuiz}
+            onPopupHandle={this.popupHandle}
+          />
+        ) : (
+          ""
+        )}
+
         <div className="Box">
           <Status
-            totalQuestion={this.state.quizzes.length}
-            currentQuestion={this.state.currentQuestion}
+            totalQuestion={quizzes.length}
+            currentQuestion={currentQuestion}
+            time={time}
           />
 
           <Question
-            quizzes={this.state.quizzes}
-            numberQuestionRight={this.state.numberQuestionRight}
-            currentQuestion={this.state.currentQuestion}
-            onNextQuestion={this.onNextQuestion}
-            onSelectQuestion = {this.onSelectQuestion}
+            quizzes={quizzes}
+            currentQuestion={currentQuestion}
+            userSelectClass={userSelectClass}
+            onSelectQuestion={this.selectQuestion}
+            onNextQuestion={this.nextQuestion}
+            onEndQuiz={this.endQuiz}
           />
-          <ToastContainer />
         </div>
+        {isLoading ? <Loading /> : ""}
       </div>
     );
   }

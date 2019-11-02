@@ -3,11 +3,11 @@ import React from "react";
 class Popup extends React.Component {
 
   render() {
-    const { total, score, isStart } = this.props;
+    const { total, score, isStart, time } = this.props;
     let title, text, buttonText
     if(isStart) {
         title = "Chúc mừng bạn đã hoàn thành bài kiểm tra"
-        text = "Bạn đạt " + score + "/" + total +" câu hỏi"
+        text = "Bạn đạt " + score + "/" + total +" câu hỏi trong thời gian " + time + "s"
         buttonText = "CHƠI LẠI"
     } else {
         title = "Bạn hiểu đất nước Việt Nam của mình đến đâu?"

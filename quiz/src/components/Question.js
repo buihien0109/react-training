@@ -3,11 +3,12 @@ import React from "react";
 class Question extends React.Component {
   render() {
     const LABEL_ANSWER = ["A", "B", "C", "D"];
-    
+
     const {
       quizzes,
       currentQuestion,
       userSelectClass,
+      isSelectAnswer,
       onSelectQuestion,
       onNextQuestion,
       onEndQuiz
@@ -36,7 +37,9 @@ class Question extends React.Component {
     return (
       <main>
         <div className="Body">
-          <div className="Question">{currentQuestion + 1}. {quiz.question}</div>
+          <div className="Question">
+            {currentQuestion + 1}. {quiz.question}
+          </div>
 
           <div className="PossibleAnswers">
             {quiz.answers.map((answer, index) => (
@@ -57,7 +60,9 @@ class Question extends React.Component {
         <div className="Footer">
           {currentQuestion === quizzes.length - 1
             ? btnEndQuiz
-            : btnNextQuestion}
+            : isSelectAnswer === true
+            ? btnNextQuestion
+            : ""}
         </div>
       </main>
     );

@@ -33,17 +33,32 @@ class App extends React.Component {
         },
         {
           question: "Tỉnh nào có nhiều thành phố nhất Việt Nam?",
-          answers: ["Hà Nội", "Hải Phòng", "Thành phố Hồ Chí Minh", "Quảng Ninh"],
+          answers: [
+            "Hà Nội",
+            "Hải Phòng",
+            "Thành phố Hồ Chí Minh",
+            "Quảng Ninh"
+          ],
           answerTrue: "Quảng Ninh"
         },
         {
           question: "Tòa nhà nào cao nhất Việt Nam??",
-          answers: ["Keangnam Landmark", "Lotte", "Landmark 81", "Tháp Bitexco"],
+          answers: [
+            "Keangnam Landmark",
+            "Lotte",
+            "Landmark 81",
+            "Tháp Bitexco"
+          ],
           answerTrue: "Landmark 81"
         },
         {
           question: "Ngọn núi nào cao nhất Việt Nam?",
-          answers: ["Phan Xi Păng", "Tà Chì Nhù", "Bạch Mộc Lương Tử", "Putaleng"],
+          answers: [
+            "Phan Xi Păng",
+            "Tà Chì Nhù",
+            "Bạch Mộc Lương Tử",
+            "Putaleng"
+          ],
           answerTrue: "Phan Xi Păng"
         },
         {
@@ -53,7 +68,12 @@ class App extends React.Component {
         },
         {
           question: "Hang động tự nhiên lớn nhất thế giới là?",
-          answers: ["Hang Thiên Đường", "Động Phong Nha", "Hang Sơn Đoòng", "Bích Động"],
+          answers: [
+            "Hang Thiên Đường",
+            "Động Phong Nha",
+            "Hang Sơn Đoòng",
+            "Bích Động"
+          ],
           answerTrue: "Hang Sơn Đoòng"
         },
         {
@@ -69,7 +89,8 @@ class App extends React.Component {
       isSelectAnswer: false,
       isPopup: true,
       isStart: false,
-      isLoading : false
+      isLoading: false,
+      interval: null
     };
   }
   //Đếm ngược thời gian
@@ -83,12 +104,15 @@ class App extends React.Component {
           time: time
         });
         if (time === 0) {
-          clearInterval(interval);
+          clearInterval(this.state.interval)
           this.setState({
-            isPopup : true
+            isPopup: true
           });
         }
       }, 1000);
+      this.setState({
+        interval: interval
+      });
     }
   };
 
@@ -102,8 +126,9 @@ class App extends React.Component {
 
   //Kết thúc bài Quiz
   endQuiz = () => {
+    clearInterval(this.state.interval);
     this.setState({
-      isPopup: true,
+      isPopup: true
     });
   };
 
@@ -118,14 +143,8 @@ class App extends React.Component {
           if (answer === answerTrue) {
             selectClass = "Answer true";
             score++;
-            setTimeout(() => {
-              this.nextQuestion();
-            }, 1500);
           } else {
             selectClass = "Answer false";
-            setTimeout(() => {
-              this.nextQuestion();
-            }, 1500);
           }
         }
         return selectClass;
@@ -153,7 +172,7 @@ class App extends React.Component {
 
   //Xử lý khi hết câu hỏi và restart lại quiz
   popupHandle = () => {
-    let {isStart} = this.state
+    let { isStart, interval } = this.state;
     //Nếu chưa bắt đầu thì cho bắt đầu còn không thì reload lại app Quiz
     if (isStart === false) {
       this.setState({
@@ -165,10 +184,24 @@ class App extends React.Component {
         isLoading: true //Cho Loading và sau 2s thì reload lại trang
       });
       setTimeout(() => {
-        window.location.reload();
-      },2000)
-      
+        clearInterval(interval);
+        this.reset();
+      }, 2000);
     }
+  };
+
+  reset = () => {
+    this.setState({
+      currentQuestion: 0,
+      score: 0,
+      time: 60,
+      userSelectClass: ["Answer", "Answer", "Answer", "Answer"],
+      isSelectAnswer: false,
+      isPopup: true,
+      isStart: false,
+      isLoading: false,
+      interval: null
+    });
   };
   render() {
     const {
@@ -177,6 +210,7 @@ class App extends React.Component {
       score,
       time,
       userSelectClass,
+      isSelectAnswer,
       isPopup,
       isStart,
       isLoading
@@ -188,6 +222,7 @@ class App extends React.Component {
           <Popup
             total={quizzes.length}
             score={score}
+            time={60 - time}
             isPopup={isPopup}
             isStart={isStart}
             startQuiz={this.startQuiz}
@@ -208,6 +243,7 @@ class App extends React.Component {
             quizzes={quizzes}
             currentQuestion={currentQuestion}
             userSelectClass={userSelectClass}
+            isSelectAnswer={isSelectAnswer}
             onSelectQuestion={this.selectQuestion}
             onNextQuestion={this.nextQuestion}
             onEndQuiz={this.endQuiz}

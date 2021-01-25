@@ -1,9 +1,9 @@
-## dependencies
+## Install Dependencies
 ```
 npm install
 ```
 
-### Run server
+## Run server
 ```
 npm start
 ```

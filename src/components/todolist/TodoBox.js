@@ -3,7 +3,7 @@ import TodoItem from './TodoItem';
 
 function TodoBox(props) {
     return (
-        <div className="todo-container">
+        <div className="todo-main">
             <div className="todo-list">
                 {props.todos.map(todo => {
                     return (

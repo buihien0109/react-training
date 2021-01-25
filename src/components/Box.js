@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../assets/css/box.css';
 
 const arrColors = ['#3498db', '#9b59b6', '#e74c3c', '#2c3e50', '#d35400'];
 function Box() {
@@ -30,19 +29,19 @@ function Box() {
     };
 
     return (
-        <div>
-            <div className="wrap">
-                <h1>JS DOM</h1>
+        <div className="box-container">
+            <h1 className="title-effect">Random Box</h1>
+            <div className="box-info">
                 <button id="btn" onClick={() => addBoxs()}>
-                    Tạo thêm box
+                    Add box
                 </button>
                 <h4 id="score">
-                    Tổng số box:<span className="points">{colors.length}</span>
+                    Total box: <span className="points">{colors.length}</span>
                 </h4>
+            </div>
 
-                <div className="boxes">
-                    {colors.length > 0 ? renderBox() : 'No box in list'}
-                </div>
+            <div className="boxes">
+                {colors.length > 0 ? renderBox() : 'No box in list'}
             </div>
         </div>
     );

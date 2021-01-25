@@ -1,0 +1,35 @@
+// ========== COUNTER COMPONENT ===========
+.counter-container {
+    width: 400px;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: 0 0 10px #cccccc;
+
+    .title {
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 0;
+        text-transform: uppercase;
+    }
+    #counter {
+        font-size: 80px;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+}

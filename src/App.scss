@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap');
+
+@import './assets/css/box.scss';
+@import './assets/css/counter.scss';
+@import './assets/css/calendar.scss';
+@import './assets/css/todo.scss';
+
+$color: #222;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: $color;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: $color;
+}
+
+a,
+button {
+    transition: all 0.3s ease-in;
+}
+
+button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    background-image: linear-gradient(
+        to right,
+        #aa076b 0%,
+        #61045f 51%,
+        #aa076b 100%
+    );
+
+    background-size: 200% auto;
+    color: #fff;
+    box-shadow: 0 0 20px #eee;
+
+    &:hover {
+        background-position: right center;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.title-effect {
+    color: #333;
+    -webkit-text-stroke: 1px #282828;
+    text-shadow: 0px 4px 4px #282828;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    background-color: #f9f9f9;
+}
+
+// ========== MENU COMPONENT ===========
+.menu-component {
+    display: flex;
+    align-items: center;
+    background: #4ca1af; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to right,
+        #c4e0e5,
+        #4ca1af
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #c4e0e5,
+        #4ca1af
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    padding-left: 50px;
+    padding-right: 50px;
+
+    .banner {
+        font-size: 1.5rem;
+        margin-right: 2rem;
+    }
+}
+
+.menu {
+    ul {
+        display: flex;
+        align-items: center;
+
+        li a {
+            display: inline-block;
+            padding: 1.5rem 1rem;
+        }
+    }
+}
+
+// ========== HOME COMPONENT ===========
+.home-component {
+    h1 {
+        font-size: 4rem;
+    }
+}
+
+
+
+
+
+

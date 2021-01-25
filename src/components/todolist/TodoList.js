@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputTodo from './InputTodo';
 import Filter from './Filter';
 import TodoBox from './TodoBox';
-import '../../assets/css/todo.css';
+// import '../../assets/css/todo.css';
 
 function createId() {
     let id = Math.floor(Math.random() * 100000);
@@ -89,8 +89,8 @@ function TodoList() {
     };
 
     return (
-        <div className="container">
-            <h1>Todo List</h1>
+        <div className="todo-container">
+            <h1 className="title-effect">Todo List</h1>
             <InputTodo
                 title={title}
                 getTitleTodo={getTitleTodo}

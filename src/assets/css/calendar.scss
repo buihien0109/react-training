@@ -1,0 +1,67 @@
+// ========== CALENDAR COMPONENT ==========
+.calendar-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #cccccc;
+
+    display: flex;
+    align-items: center;
+
+    .btn {
+        font-size: 1.5rem;
+        padding: 1rem;
+    
+        &.btn-next {
+            margin-left: 1rem;
+        }
+    
+        &.btn-prev {
+            margin-right: 1rem;
+        }
+    }
+}
+
+.calendar h1 {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.info p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.date {
+    width: 490px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .day,
+    .day-name {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #ccc;
+
+        font-size: 1.3rem;
+        text-align: center;
+        line-height: 70px;
+    }
+}
+
+.day.active {
+    background-image: linear-gradient(
+        to right,
+        #aa076b 0%,
+        #61045f 51%,
+        #aa076b 100%
+    );
+    color: #fff;
+}
